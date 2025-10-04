@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub'   // Jenkins credentials ID
-        DOCKER_IMAGE = 'username/nginx-onbuild-test'  // change this
-        CONTAINER_NAME = 'nginx-test'
+        DOCKER_IMAGE = 'uatcorextech/nginx.1.1'  // change this
+        CONTAINER_NAME = 'nginx-app'
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
         stage('Build Image from ONBUILD Base') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
+                    sh "docker build -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     sh "docker rm -f ${CONTAINER_NAME} || true"
-                    sh "docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${DOCKER_IMAGE}:latest"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${DOCKER_IMAGE}"
                 }
             }
         }
