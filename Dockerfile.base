@@ -1,0 +1,6 @@
+# Dockerfile.base
+FROM nginx:alpine
+
+# This instruction will only run when another Dockerfile builds FROM this one
+ONBUILD COPY index.html /usr/share/nginx/html/index.html
+
